@@ -17,6 +17,16 @@ ezjail.jails.{{ jail }}.configure:
     - require:
       - service: 'ezjail.service'
 
+{% if args.hostname is defined %}
+ezjail.jails.{{ jail }}.hostname:
+  file.replace:
+    - name: {{ lookup.config.directory }}/{{ jail }}
+    - pattern: '^export jail_{{ jail }}_hostname=.*?$'
+    - repl: 'export jail_{{ jail }}_hostname="{{ args.hostname }}"'
+    - require:
+      - cmd: ezjail.jails.{{ jail }}.configure
+{% endif %}
+
 {% if args.salted is defined and args.salted.grains is defined %}
 ezjail.jails.{{ jail }}.configure.grains:
   file.managed:
