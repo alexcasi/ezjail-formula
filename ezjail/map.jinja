@@ -6,6 +6,7 @@
       ],
       'config': {
         'path': '/usr/local/etc/ezjail.conf',
+        'directory': '/usr/local/etc/ezjail',
       },
       'service': {
         'name': 'ezjail',
@@ -19,9 +20,8 @@
 
 {% set defaults = {
   'jaildir': '/usr/jails',
-  'default_flavour': 'salted',
-  'use_zfs': True,
-  'use_zfs_for_jails': True,
+  'use_zfs': False,
+  'use_zfs_for_jails': False,
   'jailzfs': 'zroot/usr/jails',
   'nameserver': {
     'servers': [
