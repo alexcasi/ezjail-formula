@@ -10,8 +10,9 @@ ezjail:
           - 'salt.domain.local'
   jails:
     redis:
+      hostname: redis.example.net
       networks:
-        lo1: '10.0.0.2'
+        - 'lo1|10.0.0.2'
       flavour: salted
       salted:
         grains:
