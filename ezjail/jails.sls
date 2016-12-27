@@ -27,6 +27,16 @@ ezjail.jails.{{ jail }}.hostname:
       - cmd: ezjail.jails.{{ jail }}.configure
 {% endif %}
 
+{% if args.parameters is defined %}
+ezjail.jails.{{ jail }}.sysvipc:
+  file.replace:
+    - name: {{ lookup.config.directory }}/{{ jail }}
+    - pattern: '^export jail_{{ jail }}_parameters=.*?$'
+    - repl: 'export jail_{{ jail }}_parameters="{{ args.parameters }}"'
+    - require:
+      - cmd: ezjail.jails.{{ jail }}.configure
+{% endif %}
+
 {% if args.salted is defined and args.salted.grains is defined %}
 ezjail.jails.{{ jail }}.configure.grains:
   file.managed:
